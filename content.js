@@ -1,7 +1,7 @@
 console.log("Content script running on BookMyShow");
 
 // Max retries before refreshing the page
-const MAX_RETRIES = 30;  
+const MAX_RETRIES = 5;  
 let retries = 0;
 let buttonClicked = false;  
 let previousUrl = window.location.href;  
@@ -30,7 +30,7 @@ function startMonitoring() {
         }
 
         // If already on the booking page, stop the script
-        if (window.location.href.includes('/venue/')) {
+        if (window.location.href.includes('venue')) {
             console.log("Already on the booking page. Stopping script.");
             clearInterval(intervalId);
             return;
@@ -45,6 +45,8 @@ function startMonitoring() {
             bookButton.click();  // Automatically click the 'Book' button
             buttonClicked = true;  // Set the flag to prevent further clicks
             console.log("Book button clicked. Stopping script.");
+            // Send a message to the background script to disable the extension
+            chrome.runtime.sendMessage({ action: "disable" });
             clearInterval(intervalId);  // Stop checking after clicking the button
             return;  // Ensure no further code execution in this iteration
         } 

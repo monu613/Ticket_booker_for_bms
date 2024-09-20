@@ -1,12 +1,13 @@
 {
     "manifest_version": 3,
-    "name": "Ticket Booker (Initial)",
+    "name": "Universal Ticket Queue Monitor",
     "version": "1.0",
     "permissions": [
       "activeTab",
       "scripting",
       "tabs",
-      "storage"
+      "storage",
+      "management"
     ],
     "background": {
       "service_worker": "background.js"
